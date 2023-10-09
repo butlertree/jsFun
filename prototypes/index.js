@@ -20,26 +20,36 @@ const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
-  orangePetNames() {
+  orangePetNames(petData) {
     // Return an array of just the names of kitties who are orange e.g.
         // ['Tiger', 'Snickers']
 
-        /* CODE GOES HERE */
+       // pseudo:
+       //-- search only the orange cats (filter)
+       //-- will return an array of cat objects
+       //-- return an array of 2 names (map)
 
-    // Annotation:
-    // Write your annotation here as a comment
+       const orangePets = petData.filter((pet) => {
+        return pet.color === 'orange';
+       });
+       const orangePetNames = orangePets.map((pet) => {
+        return pet.name;
+       })
+       return orangePetNames
+  
   },
 
-  sortByAge() {
+  sortByAge(petData) {
     // Sort the kitties by their age
+    //oldest to youngest 
 
-    /* CODE GOES HERE */
+    return petData.sort((a, b) => b.age - a.age)
 
     // Annotation:
     // Write your annotation here as a comment
   },
 
-  growUp() {
+  growUp(petData) {
     // Return an array of kitties who have all grown up by 2 years e.g.
     // [{
     //   name: 'Felicia',
@@ -53,7 +63,9 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    /* CODE GOES HERE */
+    return petData.map((pet) => {
+      return {...pet, age: pet.age + 2 }
+    })
   }
 };
 
@@ -108,8 +120,6 @@ const clubPrompts = {
 
 
 
-
-
 // DATASET: mods from ./datasets/mods
 const modPrompts = {
   studentsPerMod() {
@@ -123,7 +133,12 @@ const modPrompts = {
     // ]
 
     /* CODE GOES HERE */
-
+    const studentsPerMod = mods.map((mod) => {
+      return {mod: mod.mod, studentsPerInstructor: mod.students / mod.instructors}
+      
+    }) 
+   
+      return studentsPerMod
     // Annotation:
     // Write your annotation here as a comment
   }
@@ -353,15 +368,22 @@ const bookPrompts = {
 // DATASET: weather from './datasets/weather
 
 const weatherPrompts = {
-  getAverageTemps() {
+  getAverageTemps(weather) {
     // return an array of all the average temperatures. Eg:
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
     /* CODE GOES HERE */
 
+    return weather.map((city) => {
+      return (city.temperature.high + city.temperature.low) / 2
+    })
+
     // Annotation:
     // Write your annotation here as a comment
   },
+}
+
+// console.log(weatherPrompts.getAverageTemps(weather))
 
   findSunnySpots() {
     // Return an array of sentences of the locations that are sunny
